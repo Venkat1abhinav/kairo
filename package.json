@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate",
+  "name": "kairo",
   "version": "1.0.0",
   "scripts": {
     "build": "turbo run build",
@@ -20,7 +20,8 @@
     "packages/*"
   ],
   "devDependencies": {
-    "turbo": "^2.5.5",
+    "rimraf": "^6.1.3",
+    "turbo": "^2.11.5",
     "typescript": "^5.8.3"
   }
 }

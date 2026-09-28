@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "wait-on ../../packages/openapi/dist/index.js && vite",
-    "build": "bun install && tsc && env-cmd -f .env.local vite build",
+    "build": "tsc && vite build",
     "test": "vite test",
     "preview": "vite preview",
     "lint:fix": "eslint src --fix",
@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
-    "@boilerplate/openapi": "workspace:*",
-    "@boilerplate/zod": "workspace:*",
+    "@kairo/openapi": "workspace:*",
+    "@kairo/zod": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.536.0",

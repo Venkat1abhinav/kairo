@@ -15,11 +15,11 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "@boilerplate/openapi": path.resolve(
+      "@kairo/openapi": path.resolve(
         __dirname,
         "../../packages/openapi/src"
       ),
-      "@boilerplate/zod": path.resolve(__dirname, "../../packages/zod/src"),
+      "@kairo/zod": path.resolve(__dirname, "../../packages/zod/src"),
     },
   },
 });

@@ -8,14 +8,14 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/Venkat1abhinav/kairo/internal/config"
+	loggerConfig "github.com/Venkat1abhinav/kairo/internal/logger"
 	pgxzero "github.com/jackc/pgx-zerolog"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/jackc/pgx/v5/tracelog"
 	"github.com/newrelic/go-agent/v3/integrations/nrpgx5"
 	"github.com/rs/zerolog"
-	"github.com/sriniously/go-boilerplate/internal/config"
-	loggerConfig "github.com/sriniously/go-boilerplate/internal/logger"
 )
 
 type Database struct {
@@ -58,7 +58,8 @@ func New(cfg *config.Config, logger *zerolog.Logger, loggerService *loggerConfig
 
 	// URL-encode the password
 	encodedPassword := url.QueryEscape(cfg.Database.Password)
-	dsn := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=%s",
+	dsn := fmt.Sprintf(
+		"postgres://%s:%s@%s/%s?sslmode=%s",
 		cfg.Database.User,
 		encodedPassword,
 		hostPort,

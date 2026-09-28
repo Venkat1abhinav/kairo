@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/sriniously/go-boilerplate/internal/middleware"
-	"github.com/sriniously/go-boilerplate/internal/server"
+	"github.com/Venkat1abhinav/kairo/internal/middleware"
+	"github.com/Venkat1abhinav/kairo/internal/server"
 
 	"github.com/labstack/echo/v4"
 )
@@ -59,7 +59,8 @@ func (h *HealthHandler) CheckHealth(c echo.Context) error {
 					"error_type":       "database_unhealthy",
 					"response_time_ms": time.Since(dbStart).Milliseconds(),
 					"error_message":    err.Error(),
-				})
+				},
+			)
 		}
 	} else {
 		checks["database"] = map[string]interface{}{
@@ -92,7 +93,8 @@ func (h *HealthHandler) CheckHealth(c echo.Context) error {
 						"error_type":       "redis_unhealthy",
 						"response_time_ms": time.Since(redisStart).Milliseconds(),
 						"error_message":    err.Error(),
-					})
+					},
+				)
 			}
 		} else {
 			checks["redis"] = map[string]interface{}{
@@ -116,7 +118,8 @@ func (h *HealthHandler) CheckHealth(c echo.Context) error {
 					"operation":         "health_check",
 					"error_type":        "overall_unhealthy",
 					"total_duration_ms": time.Since(start).Milliseconds(),
-				})
+				},
+			)
 		}
 		return c.JSON(http.StatusServiceUnavailable, response)
 	}
@@ -135,7 +138,8 @@ func (h *HealthHandler) CheckHealth(c echo.Context) error {
 					"operation":     "health_check",
 					"error_type":    "json_response_error",
 					"error_message": err.Error(),
-				})
+				},
+			)
 		}
 		return fmt.Errorf("failed to write JSON response: %w", err)
 	}

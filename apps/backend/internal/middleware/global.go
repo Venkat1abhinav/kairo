@@ -3,13 +3,13 @@ package middleware
 import (
 	"net/http"
 
+	"github.com/Venkat1abhinav/kairo/internal/errs"
+	"github.com/Venkat1abhinav/kairo/internal/server"
+	"github.com/Venkat1abhinav/kairo/internal/sqlerr"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
-	"github.com/sriniously/go-boilerplate/internal/errs"
-	"github.com/sriniously/go-boilerplate/internal/server"
-	"github.com/sriniously/go-boilerplate/internal/sqlerr"
 )
 
 type GlobalMiddlewares struct {
@@ -147,7 +147,8 @@ func (global *GlobalMiddlewares) GlobalErrorHandler(err error, c echo.Context) {
 	default:
 		status = http.StatusInternalServerError
 		code = errs.MakeUpperCaseWithUnderscores(
-			http.StatusText(http.StatusInternalServerError))
+			http.StatusText(http.StatusInternalServerError),
+		)
 		message = http.StatusText(http.StatusInternalServerError)
 	}
 

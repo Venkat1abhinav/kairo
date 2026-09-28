@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Venkat1abhinav/kairo/internal/errs"
+	"github.com/Venkat1abhinav/kairo/internal/server"
 	"github.com/clerk/clerk-sdk-go/v2"
 	clerkhttp "github.com/clerk/clerk-sdk-go/v2/http"
 	"github.com/labstack/echo/v4"
-	"github.com/sriniously/go-boilerplate/internal/errs"
-	"github.com/sriniously/go-boilerplate/internal/server"
 )
 
 type AuthMiddleware struct {
@@ -40,12 +40,16 @@ func (auth *AuthMiddleware) RequireAuth(next echo.HandlerFunc) echo.HandlerFunc 
 
 				if err := json.NewEncoder(w).Encode(response); err != nil {
 					auth.server.Logger.Error().Err(err).Str("function", "RequireAuth").Dur(
-						"duration", time.Since(start)).Msg("failed to write JSON response")
+						"duration", time.Since(start),
+					).Msg("failed to write JSON response")
 				} else {
 					auth.server.Logger.Error().Str("function", "RequireAuth").Dur("duration", time.Since(start)).Msg(
-						"could not get session claims from context")
+						"could not get session claims from context",
+					)
 				}
-			}))))(func(c echo.Context) error {
+			})),
+		),
+	)(func(c echo.Context) error {
 		start := time.Now()
 		claims, ok := clerk.SessionClaimsFromContext(c.Request().Context())
 
