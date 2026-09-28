@@ -42,7 +42,7 @@ tasks:
     deps: [ confirm ]
     cmds:
     - echo 'Running up migrations...'
-    - tern migrate -m ./internal/database/migrations --conn-string {{.kairo_DB_DSN}}
+    - tern migrate -m ./internal/database/migrations --conn-string "{{.KAIRO_DATABASE_URL}}"
 
   tidy:
     desc: format all .go files, and tidy and vendor module dependencies
