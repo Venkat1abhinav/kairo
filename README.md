@@ -33,7 +33,7 @@ Kairo is designed around fast task management, background processing, and a clea
 | Observability     | New Relic         |
 | API Documentation | OpenAPI / Swagger |
 | Containers        | Podman            |
-| Migrations        | golang-migrate    |
+| Migrations        | tern              |
 
 ## Project Structure
 
@@ -50,8 +50,8 @@ kairo/
 │   │   │   ├── repositories/
 │   │   │   ├── services/
 │   │   │   └── ...
-│   │   ├── migrations/
-│   │   ├── .env.example
+│   │   ├── internal/database/migrations/
+│   │   ├── .env.sample
 │   │   ├── go.mod
 │   │   └── Taskfile.yml
 │   │
@@ -217,7 +217,7 @@ PONG
 Copy the example configuration:
 
 ```bash
-cp apps/backend/.env.example apps/backend/.env
+cp apps/backend/.env.sample apps/backend/.env
 ```
 
 For local PostgreSQL:
@@ -282,7 +282,12 @@ The API will be available at:
 http://localhost:8080
 ```
 
-Start the frontend using the project's frontend development command.
+Frontend:
+
+```bash
+cd apps/frontend
+npm run dev
+```
 
 ## Database
 
@@ -310,10 +315,10 @@ Apply migrations:
 task migrations:up
 ```
 
-Rollback migrations:
+Rollback the last migration:
 
 ```bash
-task migrations:down
+tern migrate -m ./internal/database/migrations --steps -1 --conn-string "$KAIRO_DATABASE_URL"
 ```
 
 ## Background Jobs
@@ -357,7 +362,7 @@ KAIRO_OBSERVABILITY_*
 See:
 
 ```text
-apps/backend/.env.example
+apps/backend/.env.sample
 ```
 
 for the complete configuration.
@@ -387,7 +392,7 @@ task run
 Run tests:
 
 ```bash
-task test
+go test ./...
 ```
 
 Create a migration:
@@ -402,10 +407,10 @@ Apply migrations:
 task migrations:up
 ```
 
-Rollback migrations:
+Rollback the last migration:
 
 ```bash
-task migrations:down
+tern migrate -m ./internal/database/migrations --steps -1 --conn-string "$KAIRO_DATABASE_URL"
 ```
 
 Format and tidy dependencies:

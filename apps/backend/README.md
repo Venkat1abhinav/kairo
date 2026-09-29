@@ -96,7 +96,7 @@ go mod download
 2. Set up environment:
 
 ```bash
-cp .env.example .env
+cp .env.sample .env
 # Configure your environment variables
 ```
 
@@ -114,7 +114,7 @@ task run
 
 ## Configuration
 
-Configuration is managed through environment variables with the `kairo_` prefix:
+Configuration is managed through environment variables with the `KAIRO_` prefix.
 
 ## Development
 
@@ -123,10 +123,10 @@ Configuration is managed through environment variables with the `kairo_` prefix:
 ```bash
 task help                    # Show all available tasks
 task run                     # Run the application
-task test                    # Run tests
+go test ./...                # Run tests
 task migrations:new name=X   # Create new migration
 task migrations:up           # Apply migrations
-task migrations:down         # Rollback last migration
+tern migrate -m ./internal/database/migrations --steps -1 --conn-string "$KAIRO_DATABASE_URL"  # Rollback last migration
 task tidy                    # Format and tidy dependencies
 ```
 
