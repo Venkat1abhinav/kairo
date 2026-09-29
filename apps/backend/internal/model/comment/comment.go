@@ -1,8 +1,9 @@
 package comment
 
 import (
+	"uuid"
+
 	"github.com/Venkat1abhinav/kairo/internal/model"
-	"github.com/google/uuid"
 )
 
 type Comment struct {

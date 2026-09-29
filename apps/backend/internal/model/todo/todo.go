@@ -5,6 +5,8 @@ import (
 	"time"
 
 	"github.com/Venkat1abhinav/kairo/internal/model"
+	"github.com/Venkat1abhinav/kairo/internal/model/category"
+	"github.com/Venkat1abhinav/kairo/internal/model/comment"
 	"github.com/google/uuid"
 )
 
@@ -45,4 +47,11 @@ type Metadata struct {
 	Reminder   *string  `json:"reminder"`
 	Color      *string  `json:"color"`
 	Difficulty *string  `json:"difficulty"`
+}
+
+type PopulatedTodo struct {
+	Todo
+	Category *category.Category `json:"category" db:"category"`
+	Children []Todo             `json:"children" db:"children"`
+	Comments []comment.Comment  `json:"comments" db:"comments"`
 }
